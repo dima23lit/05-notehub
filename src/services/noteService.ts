@@ -1,11 +1,11 @@
 import axios from "axios";
-import { type Note, type NoteTag } from "../types/note"
+import { type Note } from "../types/note"
 
 
 const myKey = import.meta.env.VITE_NOTEHUB_TOKEN;
 
 interface NotesHttpResponse {
-    notes?: Note[],
+    notes: Note[],
     totalPages: number
 }
 
@@ -39,10 +39,10 @@ export async function deleteNote(id: string) {
         }
     })
 
-    return res
+    return res.data
 }
 
-export async function createNote(newNote: NoteTag) {
+export async function createNote(newNote: Note) {
     const res = await axios.post<Note>(`${url}`, newNote, {
     headers: {
         Authorization: `Bearer ${myKey}`,
@@ -50,5 +50,5 @@ export async function createNote(newNote: NoteTag) {
         }
     })
 
-    return res
+    return res.data
 }

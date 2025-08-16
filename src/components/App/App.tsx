@@ -43,7 +43,7 @@ export default function App() {
     return (
         <div className={css.app}>
             <header className={css.toolbar}>
-                <SearchBox text={searchQuery} onSearch={debouncedSetSearchQuery} />
+                <SearchBox text={searchQuery} setPage={ setCurrentPage }  onSearch={debouncedSetSearchQuery} />
                 {isLoading && <Loader />}
                 {!isLoading && isError && <ErrorMessage />}
                 {notes.length > 0  && <Pagination totalPages={totalPages} onPageChange={handlePageChange} forcePage={currentPage - 1}/>}

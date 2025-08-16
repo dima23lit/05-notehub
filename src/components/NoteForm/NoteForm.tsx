@@ -1,11 +1,11 @@
 import css from "../NoteForm/NoteForm.module.css"
 import { Formik, Form, Field, ErrorMessage, type FormikHelpers} from "formik";
-import { type NoteTag } from "../../types/note"
+import { type Note } from "../../types/note"
 import * as Yup from "yup";
 import { createNote } from "../../services/noteService";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const initialValues: NoteTag = {
+const initialValues: Note = {
     title: "",
     content: "",
     tag: "Todo",
@@ -33,7 +33,7 @@ export default function NoteForm({ onClose, onSuccess }: NoteFormProps) {
         }
     })
 
-    const handleSubmit = (values: NoteTag, formikHelpers: FormikHelpers<NoteTag>) => {
+    const handleSubmit = (values: Note, formikHelpers: FormikHelpers<Note>) => {
         mutate({
             title: values.title,
             content: values.content,
