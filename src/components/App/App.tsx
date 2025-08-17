@@ -20,8 +20,10 @@ export default function App() {
     const openModal = () => setIsModalOpen(true);
     const closeModal = () => setIsModalOpen(false);
 
-    const debouncedSetSearchQuery = useDebouncedCallback(
-        setSearchQuery, 300);
+    const debouncedSetSearchQuery = useDebouncedCallback((value: string) => {
+        setSearchQuery(value);
+        setCurrentPage(1)
+    }, 300);
 
     const { data, isError, isLoading } = useQuery({
     queryKey: ['Note', currentPage, searchQuery],
@@ -43,7 +45,7 @@ export default function App() {
     return (
         <div className={css.app}>
             <header className={css.toolbar}>
-                <SearchBox text={searchQuery} setPage={ setCurrentPage }  onSearch={debouncedSetSearchQuery} />
+                <SearchBox text={searchQuery}  onSearch={debouncedSetSearchQuery} />
                 {isLoading && <Loader />}
                 {!isLoading && isError && <ErrorMessage />}
                 {notes.length > 0  && <Pagination totalPages={totalPages} onPageChange={handlePageChange} forcePage={currentPage - 1}/>}
